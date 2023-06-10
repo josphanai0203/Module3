@@ -3,8 +3,7 @@ use QuanLyBanHang;
 create table Customer(
 cID int primary key,
 CName varchar(50),
-cAge int,
-check (cAge >=18)
+cAge int
 );
 create table Product(
 pID int primary key,
@@ -14,7 +13,7 @@ pPrice double
 create table `Order`(
 oID int primary key,
 cID int ,
-oDate date,
+oDate datetime,
 oTotalPrice double,
 foreign key (cID) references Customer(cID)
 );
