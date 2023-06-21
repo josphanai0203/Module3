@@ -1,0 +1,20 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.black{
+    color: black;
+}
+.baby-blue{
+    color: lightskyblue;
+}
+.blue{
+    color: blue;
+}
+.gach{
+    border-bottom: solid 1px #cccccc;
+}
+.sub-title{
+    display: block;
+    margin-top: 10px;
+}
