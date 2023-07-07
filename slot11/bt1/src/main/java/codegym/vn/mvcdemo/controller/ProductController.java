@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,9 +41,18 @@ public class ProductController extends HttpServlet {
                 viewCreate(req, resp);
             case "update":
                 viewUpdate(req,resp);
+            case "delete":
+                doDeleteP(req,resp);
             default:
 
         }
+    }
+    private void doDeleteP(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        Product del = new Product();
+        del.setId(id);
+        productService.delete(del);
+        resp.sendRedirect("/product?action=list");
     }
 
     private void viewCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,7 +76,9 @@ public class ProductController extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/views/product/list.jsp")
                 .forward(req, resp);
     }
+    private void viewSearch(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
 
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -83,10 +95,25 @@ public class ProductController extends HttpServlet {
             case "update":
                 doUpdate(req,resp);
                 break;
+            case "search":
+                doSearch(req,resp);
+                break;
             default:
         }
     }
-
+    private void doSearch(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String value = req.getParameter("valueSearch").trim();
+        List<Product> list = productService.findAll();
+        List<Product> result = new ArrayList<>();
+        for(Product p : list){
+            if(p.getName().contains(value)){
+                result.add(p);
+            }
+        }
+        req.setAttribute("value",value);
+        req.setAttribute("searchList",result);
+        req.getRequestDispatcher("/WEB-INF/views/product/list.jsp").forward(req,resp);
+    }
     private void doCreate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
