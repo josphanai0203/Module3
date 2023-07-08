@@ -12,8 +12,26 @@
 <head>
     <title>User Management Application</title>
     <style>
+        *{
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
         table,tr,td{
             border-collapse: collapse;
+        }
+        #inputSearch {
+            width: 96%;
+            border: none;
+            padding: 4px;
+            margin: 2px;
+            font-size: 1.4rem;
+            overflow: hidden;
+            outline: none;
+        }
+        #box {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -24,9 +42,10 @@
     <h2>
         <a href="/users?action=create">Add New User</a>
     </h2>
-    <h2 style="margin-top: 20px" >
+   <div id="box">
         <input type="text" oninput="loadData()" name="search" id="inputSearch" placeholder="Search ">
-    </h2>
+
+   </div>
 </center>
 <div align="center" id="content">
     <table border="1" cellpadding="5">
